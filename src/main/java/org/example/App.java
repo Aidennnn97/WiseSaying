@@ -20,7 +20,7 @@ public class App {
                     System.out.println("프로그램이 종료되었습니다...");
                     return;
                 default:
-                    System.out.printf("%s(은)는 올바르지 않은 명령입니다.\n", cmd);
+                    System.out.printf("`%s`(은)는 올바르지 않은 명령입니다.\n", cmd);
                     break;
             }
         }
