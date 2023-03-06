@@ -6,9 +6,12 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.util.Scanner;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AppTest {
+
+    // 테스트 유틸 테스트 시작
     @Test
     @DisplayName("스캐너에_키보드가_아닌_문자열을_입력으로_설정")
     public void t1() {
@@ -32,15 +35,28 @@ public class AppTest {
         TestUtil.clearSetOutToByteArray(output);    // 원상복구
     }
 
-//    @Test
-//    @DisplayName("문자열을_파일에_저장")
-//    public void t3() {
-//        Util.file.mkdir(App.getDataBaseDir());
-//        Util.file.saveToFile(App.getDataBaseDir() + "/1.txt", "안녕");
-//
-//        String body = Util.file.readFromFile(App.getDataBaseDir() + "/1.txt", "");
-//
-//        assertEquals("안녕", body);
-//    }
+    // 테스트 유틸 테스트 끝
+
+    // 앱 테스트 시작
+
+    @Test
+    @DisplayName("프로그램_시작시_타이틀_출력_그리고_종료")
+    public void t3() {
+        Scanner sc = TestUtil.genScanner("종료");
+        ByteArrayOutputStream output = TestUtil.setOutToByteArray();
+
+        new App(sc).run();
+
+        String rs = output.toString();
+        TestUtil.clearSetOutToByteArray(output);
+
+        assertThat(rs)
+                .contains("== 명언 앱 ==")
+                .contains("명령) ")
+                .doesNotContain("올바르지 않은 명령입니다.")
+                .contains("프로그램이 종료되었습니다.");
+    }
+
+    // 앱 테스트 끝
 }
 
